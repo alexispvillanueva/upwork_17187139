@@ -1,8 +1,3 @@
-
-Hi Shannon, 
-
-Please see below cost computation based on new requirements.
-
 *New requirement:* 
 To capture of the entire definitions pages and the entire Investment section if a DSR is found
 
@@ -40,8 +35,8 @@ To capture the Investment section Pages if DSRF is found
 	Testing	: 3 hrs
 	Total	: 12 hrs
 
-	Rate	: $10/hr
-	Total Cost: $120
+	Rate	: 
+	Total Cost: 
 ```
 
 *Duration:*
@@ -50,6 +45,3 @@ To capture the Investment section Pages if DSRF is found
 	Total Duration: 6 days
 ```
 
-
-Thank you.
-Alexis
