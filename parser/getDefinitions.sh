@@ -14,14 +14,11 @@ def_pages=${RAWDIR}/${id}/${id}_def_pages
 # 3) Program ends capturing page if there's no more word enclosed with quotation marks 
 
 # Step 1
-echo $id
 pdfgrep -C "line" -in "definitions" ${pdfraw} | egrep -if ${PRSDIR}/definitions_start.txt 2> /dev/null > ${def_pages}
-cat ${def_pages}
 
 # Step 2
 for startpage in `cut -d: -f1 ${def_pages}`
 do
-  echo $startpage
   p=$startpage
 
   $PRSDIR/pdfSplitPage.sh $id $p
@@ -40,11 +37,12 @@ do
 
   endpage=$[$p-1]
 
-  echo $startpage $endpage
+  #echo $startpage $endpage
 
   if [ $startpage -lt $endpage ]
   then
     $PRSDIR/pdfSplitPage.sh $id $startpage $endpage
+    echo "${id}-${startpage}-${endpage}.pdf" >> ${def_pages}
   fi
 
 done

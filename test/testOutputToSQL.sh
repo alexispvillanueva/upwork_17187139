@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export BASDIR="/Users/aleisha/Documents/ODesk/20161023_Shannon_Scraper/msrb"
+export BASDIR="/Users/aleisha/git/upwork_17187139"
 export PRSDIR="${BASDIR}/parser"
 export RAWDIR="/Volumes/MacDrive/msrb/raw"
 export OUTDIR="${BASDIR}/output"
