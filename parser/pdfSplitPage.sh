@@ -6,7 +6,7 @@ split() {
 
   s=$1
   #java -Djava.awt.headless=true -jar ${pdfbox} PDFSplit -split ${s} -startPage ${p} -endPage ${e} -outputPrefix ${RAWDIR}/${id}/split ${rawpdf}
-  #echo java -Djava.awt.headless=true -jar ${pdfbox} PDFSplit -split ${s} -startPage ${p} -endPage ${e} ${rawpdf}
+  echo java -Djava.awt.headless=true -jar ${pdfbox} PDFSplit -split ${s} -startPage ${p} -endPage ${e} ${rawpdf}
   java -Djava.awt.headless=true -jar ${pdfbox} PDFSplit -split ${s} -startPage ${p} -endPage ${e} ${rawpdf}
   test -s ${splitpage} && mv ${splitpage} ${pdfpage}
 }
