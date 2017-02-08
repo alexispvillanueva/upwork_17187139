@@ -72,14 +72,18 @@ then
 fi
 
 #17) DEFINITIONS_PAGE
-cut -d: -f2 ${def_pages} | sort -n |awk 'BEGIN{ORS=" "};{print $0}' | sed "s/ $//g" > ${DEFINITIONS_PAGE}
+grep pdf  ${def_pages} | sort -n |awk 'BEGIN{ORS=" "};{print $0}' | sed "s/ $//g" > ${DEFINITIONS_PAGE}
+
+#18) INVESTMENTS PAGE
+grep pdf  ${inv_pages} | sort -n |awk 'BEGIN{ORS=" "};{print $0}' | sed "s/ $//g" > ${INVESTMENTS_PAGE}
+
 
 # Generate SQL
 
 L=`wc -l ${DBDIR}/fields.txt | awk '{print $1}'`
 echo "INSERT INTO msrb.ISSUES ("
 echo "  ID,"
-for F in `cat ${DBDIR}/fields.txt `
+for F in `cut -d, -f1 ${DBDIR}/fields.txt `
 do
   test -s ${IDDIR}/${id}_${F}.txt && echo "  $F,"
 done
@@ -87,11 +91,13 @@ echo "  CREATED_DATE"
 
 echo ") VALUES ("
 echo "  '$id',"
-for F in `cat ${DBDIR}/fields.txt `
+for FC in `cat ${DBDIR}/fields.txt `
 do
+  F=`echo $FC | cut -d, -f1`
+  C=`echo $FC | cut -d, -f2`
   if [ "$F" != "MATURITY_DATE" ] && [ "$F" != "DATED_DATE" ]
   then
-    test -s ${IDDIR}/${id}_${F}.txt && echo "  '`cat ${IDDIR}/${id}_${F}.txt`',"
+    test -s ${IDDIR}/${id}_${F}.txt && echo "  '`cut -c1-${C} ${IDDIR}/${id}_${F}.txt`',"
   else 
     test -s ${IDDIR}/${id}_${F}.txt && echo "  STR_TO_DATE('`cat ${IDDIR}/${id}_${F}.txt`','%m/%d/%Y'),"
   fi
@@ -99,11 +105,13 @@ done
 echo "  CURRENT_TIMESTAMP()"
 echo ") ON DUPLICATE KEY UPDATE "
 
-for F in `cat ${DBDIR}/fields.txt `
+for FC in `cat ${DBDIR}/fields.txt `
 do
+  F=`echo $FC | cut -d, -f1`
+  C=`echo $FC | cut -d, -f2`
   if [ "$F" != "MATURITY_DATE" ] && [ "$F" != "DATED_DATE" ]
   then
-    test -s ${IDDIR}/${id}_${F}.txt && echo "  $F = '`cat ${IDDIR}/${id}_${F}.txt`',"
+    test -s ${IDDIR}/${id}_${F}.txt && echo "  $F = '`cut -c1-${C} ${IDDIR}/${id}_${F}.txt`',"
   else 
     test -s ${IDDIR}/${id}_${F}.txt && echo "  $F = STR_TO_DATE('`cat ${IDDIR}/${id}_${F}.txt`','%m/%d/%Y'),"
   fi

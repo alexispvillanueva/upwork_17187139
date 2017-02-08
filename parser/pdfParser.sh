@@ -51,5 +51,8 @@ fi
 echo "[${scriptname}] [$SECONDS sec] done"
 
 # Get Definitions Page
-${PRSDIR}/getDefinitionsPage.sh $id > ${def_pages}
-#This is the new one --> ${PRSDIR}/getDefinitions.sh $id 
+${PRSDIR}/getDefinitions.sh $id 
+
+# Get Investments Page
+${PRSDIR}/getInvestments.sh $id 
+
